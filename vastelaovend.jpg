@@ -1,0 +1,32 @@
+/*
+  ================================================================
+  HIER KUN JE ZELF DE WEBSITE-INHOUD AANPASSEN
+  ================================================================
+  Foto's staan in: images/
+  Verander alleen de tekst tussen de aanhalingstekens.
+  Laat de namen van de velden en de komma's staan.
+*/
+const SITE = {
+  email: "info@kerfgilde.nl",
+  heroKicker: "SOCIËTEIT ’T KERFGILDE",
+  heroTitle1: "WEEJ GAON",
+  heroTitle2: "KERVE.",
+  heroText: "Veer ald prinse. Ein eige gilde. Same, laache, laeve. En vooral: nog lang neet klaor.",
+  introTitle: "ÓS GEZICHTER? DAOR GEIT ’T NEET UM.",
+  introText: "Ós verhaol wel. Veer hebbe waat meimak, waat te vertelle en nog genne enkele reden um daor stil van te worre.",
+  storyTitle: "MEER DAN EIN GILDE.",
+  storyText: "’t Kerfgilde is ’n kómpenie van veer ald prinse en acht adjudante. Gen museumstuk, gen vergaderingencircus en zeker genne club dae zich ieder keer mót oetlegge. Gewoeën luuj dae same gaer zien, laache, laeve en Vastelaovend viere.",
+  kerfTitle: "EIN KERF IS GENNE FOUT.",
+  kerfText: "Ein kerf is ’n teiken. ’n Herinnering. Soms ’n litteken. En soms gewoeën ’n streepke op ’n bierviltje, umdat geej veur de zekerheid nog ene pak. Totdat ’t viltje vol steit en geej ontdekt det geej eigenlijk al ’n heel verhaol aan ’t schrieve waort.",
+  humorTitle: "GEN COMMISSIE. GEN REGLEMENT. WEL PLEZEER.",
+  humorText: "Weej gaon same op pad. Weej ete. Weej drinke. Weej laache. En weej make herinneringe. Zonder vergadering óver de vraag waor ’t bierviltje mót ligge. Dat scheelt al gauw ’n paar uur.",
+  cityTitle: "ÓS STAD. ÓS SFEER.",
+  cityText: "Venlo hoefde weej neet uut te legge. Geej voelt ’t. De taol, de Vastelaovend, de straote, de historie en de mense. Ós gilde kump oet dizze stad en dat meuge ze waete ouk.",
+  peopleTitle: "VIER ALD PRINSE. ACHT ADJUDANTE.",
+  peopleText: "Twaalf minse. Ein gilde. Verschillende verhaole, dezelfde joeks. Dees gilde is neet gemaakt um op ’n voetstuk te staon. Wel um d’r same af en toe neet miër vanaaf te komme.",
+  ambitionTitle: "DIEPE KERVE. LANGE HERINNERINGE.",
+  ambitionText: "Weej willen neet de grootste zien. Wel degene wao ze later nog óver hebbe. Mit humor, diepgang, zelfspot en verhaole die langer meegoon dan de gemiddelde carnavalsmaondag.",
+  joinTitle: "NEET MIER ALD PRINS ZIEN?",
+  joinText: "Daor kins se niks meer aan doon. Mer ge kins waal zörge det d’r nog vuuel mooie kerve bijkómme.",
+  footerText: "Sociëteit van neet mier ald prins zien. Non omnes principes · Non omnes cives"
+};
