@@ -13,22 +13,23 @@ html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ivory);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
+/* Vaste navigatie. De pagina begint onder de navigatie zodat de hero nooit onder de header wordt afgesneden. */
 .site-header{position:fixed;top:0;left:0;right:0;height:var(--header);z-index:10000;background:rgba(5,8,13,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav{height:100%;max-width:var(--max);margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{display:flex;align-items:center;gap:13px}.brand img{width:58px;height:58px;object-fit:contain}.brand span{font-size:10px;letter-spacing:.22em;text-transform:uppercase}
 .menu{display:flex;align-items:center;gap:24px}.menu a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c8c1b6}.menu a:hover{color:var(--gold2)}
 .menubtn{display:none;background:#0b1119;color:var(--gold2);border:1px solid var(--line);padding:12px 15px;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
 
-/* De hero blijft als één scherm achter de content staan. De volgende sectie heeft een hogere z-index en schuift er volledig overheen. */
-.hero-wrap{height:100svh;min-height:560px;position:relative;z-index:0}
-.hero{position:sticky;top:var(--header);height:calc(100svh - var(--header));min-height:490px;background:#000;overflow:hidden;z-index:0}
+/* Hero staat normaal in de documentflow. Daardoor verdwijnt de foto bij scrollen vanzelf achter de volgende content. */
+.hero-wrap{height:100svh;min-height:560px;padding-top:var(--header);position:relative;z-index:0}
+.hero{position:relative;height:calc(100svh - var(--header));min-height:490px;background:#000;overflow:hidden;z-index:0}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;z-index:0}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.05) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;z-index:1}
 .hero-copy{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:min(92%,900px);text-align:center;text-shadow:0 4px 24px #000;z-index:2}
 .eyebrow{color:var(--gold2);font-size:10px;letter-spacing:.28em;text-transform:uppercase}
 .hero h1{font:400 clamp(48px,7vw,96px)/.9 Georgia,serif;letter-spacing:-.045em;text-transform:uppercase;margin:12px 0}.hero-sub{color:var(--gold2);font-weight:700;font-size:clamp(13px,1.6vw,20px);letter-spacing:.18em;text-transform:uppercase}
 
-/* Opaque content met hogere z-index: de hero verdwijnt visueel achter de inhoud zodra er wordt gescrold. */
+/* Content is opaque and follows the hero in normal flow, so the hero cannot remain visible while scrolling. */
 .content{position:relative;z-index:20;background:var(--bg)}
 section{scroll-margin-top:calc(var(--header) + 14px)}
 .section{padding:110px max(24px,calc((100% - var(--max))/2));border-top:1px solid var(--line);background:var(--bg)}
@@ -47,8 +48,8 @@ section{scroll-margin-top:calc(var(--header) + 14px)}
 @media(max-width:760px){
 :root{--header:70px}.nav{padding:0 16px}.brand img{width:50px;height:50px}.brand span{display:none}.menu{display:none}.menubtn{display:block}
 .menu.mobile-open{display:flex;position:fixed;top:var(--header);left:0;right:0;padding:18px 22px 24px;background:#05080d;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--line);z-index:10001}.menu.mobile-open a{padding:14px 0;border-bottom:1px solid rgba(228,191,105,.1)}
-/* Mobiel gebruikt exact dezelfde sticky hero-logica als desktop: de complete foto blijft in beeld totdat de volgende sectie eroverheen schuift. */
-.hero-wrap{height:100svh;min-height:0}.hero{height:calc(100svh - var(--header));min-height:0;top:var(--header)}.hero img{object-fit:contain;object-position:center}.hero-copy{bottom:5%;width:94%}.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}.hero-sub{font-size:11px;letter-spacing:.13em}
+/* Mobiel: volledige hero onder de vaste header, zonder sticky gedrag. */
+.hero-wrap{height:100svh;min-height:0;padding-top:var(--header)}.hero{height:calc(100svh - var(--header));min-height:0}.hero img{object-fit:contain;object-position:center}.hero-copy{bottom:5%;width:94%}.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}.hero-sub{font-size:11px;letter-spacing:.13em}
 .section{padding:72px 20px}.section h2{font-size:clamp(40px,12.5vw,62px)}.lead{font-size:19px}.text{font-size:16px;line-height:1.72}.grid{grid-template-columns:1fr;gap:18px;margin-top:35px}.card{padding:20px}.card img{width:calc(100% + 40px);height:auto;max-height:none;margin:-20px -20px 20px;object-fit:contain}.gallery{grid-template-columns:1fr;gap:14px}.gallery img{width:100%;height:auto;max-height:none;object-fit:contain}.quote{font-size:29px}.footer{line-height:1.7}#beheer{right:10px;bottom:10px}#panel{right:10px;bottom:62px;width:calc(100vw - 20px)}
 }
 </style>
