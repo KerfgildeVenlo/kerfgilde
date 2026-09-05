@@ -13,163 +13,69 @@ html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ivory);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
-/* Vaste navigatie: blijft altijd bovenaan, onafhankelijk van de scrollcontainer. */
 .site-header{position:fixed;top:0;left:0;right:0;height:var(--header);z-index:10000;background:rgba(5,8,13,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav{height:100%;max-width:var(--max);margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{display:flex;align-items:center;gap:13px}
-.brand img{width:58px;height:58px;object-fit:contain}
-.brand span{font-size:10px;letter-spacing:.22em;text-transform:uppercase}
-.menu{display:flex;align-items:center;gap:24px}
-.menu a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c8c1b6}
-.menu a:hover{color:var(--gold2)}
+.brand{display:flex;align-items:center;gap:13px}.brand img{width:58px;height:58px;object-fit:contain}.brand span{font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+.menu{display:flex;align-items:center;gap:24px}.menu a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c8c1b6}.menu a:hover{color:var(--gold2)}
 .menubtn{display:none;background:#0b1119;color:var(--gold2);border:1px solid var(--line);padding:12px 15px;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
 
-/* Hero is een gewone scrollende sectie. Alleen de header is fixed. */
-.hero-wrap{position:relative;z-index:0;min-height:0}
-.hero{position:relative;width:100%;min-height:calc(100svh - var(--header));background:#000;overflow:hidden;z-index:0;padding-top:var(--header)}
-.hero img{display:block;position:relative;top:auto;left:auto;width:100%;height:auto;max-width:none;object-fit:contain;object-position:center;z-index:0}
-.shade{position:absolute;top:var(--header);left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.05) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;z-index:1}
+/* De hero blijft als één scherm achter de content staan. De volgende sectie heeft een hogere z-index en schuift er volledig overheen. */
+.hero-wrap{height:100svh;min-height:560px;position:relative;z-index:0}
+.hero{position:sticky;top:var(--header);height:calc(100svh - var(--header));min-height:490px;background:#000;overflow:hidden;z-index:0}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;z-index:0}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.05) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;z-index:1}
 .hero-copy{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:min(92%,900px);text-align:center;text-shadow:0 4px 24px #000;z-index:2}
 .eyebrow{color:var(--gold2);font-size:10px;letter-spacing:.28em;text-transform:uppercase}
-.hero h1{font:400 clamp(48px,7vw,96px)/.9 Georgia,serif;letter-spacing:-.045em;text-transform:uppercase;margin:12px 0}
-.hero-sub{color:var(--gold2);font-weight:700;font-size:clamp(13px,1.6vw,20px);letter-spacing:.18em;text-transform:uppercase}
+.hero h1{font:400 clamp(48px,7vw,96px)/.9 Georgia,serif;letter-spacing:-.045em;text-transform:uppercase;margin:12px 0}.hero-sub{color:var(--gold2);font-weight:700;font-size:clamp(13px,1.6vw,20px);letter-spacing:.18em;text-transform:uppercase}
 
-/* Content ligt bewust boven de hero tijdens het scrollen. Daardoor verdwijnt de eerste foto achter de volgende sectie. */
+/* Opaque content met hogere z-index: de hero verdwijnt visueel achter de inhoud zodra er wordt gescrold. */
 .content{position:relative;z-index:20;background:var(--bg)}
 section{scroll-margin-top:calc(var(--header) + 14px)}
 .section{padding:110px max(24px,calc((100% - var(--max))/2));border-top:1px solid var(--line);background:var(--bg)}
 .section.alt{background:linear-gradient(180deg,#08121d,#050b12)}
-.section h2{font:400 clamp(43px,6vw,82px)/.9 Georgia,serif;letter-spacing:-.045em;text-transform:uppercase;margin:16px 0 30px}
-.rule{width:100px;height:1px;background:var(--gold);margin:30px 0}
-.lead{max-width:900px;font:400 clamp(20px,2.2vw,29px)/1.45 Georgia,serif;color:#e1d9cc}
-.text{max-width:850px;font-size:17px;line-height:1.8;color:var(--text)}
+.section h2{font:400 clamp(43px,6vw,82px)/.9 Georgia,serif;letter-spacing:-.045em;text-transform:uppercase;margin:16px 0 30px}.rule{width:100px;height:1px;background:var(--gold);margin:30px 0}
+.lead{max-width:900px;font:400 clamp(20px,2.2vw,29px)/1.45 Georgia,serif;color:#e1d9cc}.text{max-width:850px;font-size:17px;line-height:1.8;color:var(--text)}
 .quote{max-width:900px;border-left:2px solid var(--gold);padding-left:25px;font:400 clamp(28px,4vw,50px)/1.2 Georgia,serif}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:55px}
-.card{background:#09131e;border:1px solid var(--line);padding:25px}
-.card img{display:block;width:calc(100% + 50px);height:300px;object-fit:cover;margin:-25px -25px 24px}
-.card h3{font:400 27px/1.1 Georgia,serif;margin:0 0 12px}
-.card p{font-size:15px;line-height:1.7;color:#aaa59b}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:45px}
-.gallery img{display:block;width:100%;height:auto;max-height:330px;object-fit:contain;background:#02060b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:55px}.card{background:#09131e;border:1px solid var(--line);padding:25px}.card img{display:block;width:calc(100% + 50px);height:300px;object-fit:cover;margin:-25px -25px 24px}.card h3{font:400 27px/1.1 Georgia,serif;margin:0 0 12px}.card p{font-size:15px;line-height:1.7;color:#aaa59b}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:45px}.gallery img{display:block;width:100%;height:auto;max-height:330px;object-fit:contain;background:#02060b}
 .footer{text-align:center;padding:55px 20px;background:#02050a;border-top:1px solid var(--line);color:#8e887f;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
 
 #beheer{position:fixed;right:18px;bottom:18px;z-index:20000;background:var(--gold);color:#080b0f;border:0;padding:13px 17px;font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 12px 35px rgba(0,0,0,.5);cursor:pointer}
-#panel{display:none;position:fixed;right:18px;bottom:70px;width:min(500px,calc(100vw - 24px));max-height:80vh;overflow:auto;z-index:20001;background:#07111c;color:var(--ivory);border:1px solid var(--line);padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.7)}
-#panel.open{display:block}
-#panel h3{margin:0 0 7px;color:var(--gold2)}
-#panel p{font-size:12px;color:#aaa59b;line-height:1.5}
-.edit{display:block;width:100%;margin:9px 0;padding:10px;background:#02060b;color:var(--ivory);border:1px solid var(--line);font:14px/1.45 Arial,sans-serif}
-.edit[contenteditable=true]{outline:none}
-.close{float:right;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
-.save{width:100%;padding:12px;background:var(--gold);border:0;font-weight:800;margin-top:8px;cursor:pointer}
+#panel{display:none;position:fixed;right:18px;bottom:70px;width:min(500px,calc(100vw - 24px));max-height:80vh;overflow:auto;z-index:20001;background:#07111c;color:var(--ivory);border:1px solid var(--line);padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.7)}#panel.open{display:block}
+#panel h3{margin:0 0 7px;color:var(--gold2)}#panel p{font-size:12px;color:#aaa59b;line-height:1.5}.edit{display:block;width:100%;margin:9px 0;padding:10px;background:#02060b;color:var(--ivory);border:1px solid var(--line);font:14px/1.45 Arial,sans-serif}.edit[contenteditable=true]{outline:none}.close{float:right;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}.save{width:100%;padding:12px;background:var(--gold);border:0;font-weight:800;margin-top:8px;cursor:pointer}
 
 @media(max-width:760px){
-:root{--header:70px}
-.nav{padding:0 16px}
-.brand img{width:50px;height:50px}
-.brand span{display:none}
-.menu{display:none}
-.menubtn{display:block}
-.menu.mobile-open{display:flex;position:fixed;top:var(--header);left:0;right:0;padding:18px 22px 24px;background:#05080d;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--line);z-index:10001}
-.menu.mobile-open a{padding:14px 0;border-bottom:1px solid rgba(228,191,105,.1)}
-
-/* Mobiel: volledige foto op natuurlijke verhouding. Geen absolute positionering, geen cover en geen clipping. */
-.hero-wrap{min-height:0}
-.hero{min-height:0;height:auto;padding-top:var(--header);overflow:hidden}
-.hero img{position:relative;top:auto;left:auto;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center}
-.shade{top:var(--header);bottom:0}
-.hero-copy{bottom:5%;width:94%}
-.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}
-.hero-sub{font-size:11px;letter-spacing:.13em}
-.section{padding:72px 20px}
-.section h2{font-size:clamp(40px,12.5vw,62px)}
-.lead{font-size:19px}
-.text{font-size:16px;line-height:1.72}
-.grid{grid-template-columns:1fr;gap:18px;margin-top:35px}
-.card{padding:20px}
-.card img{width:calc(100% + 40px);height:auto;max-height:none;margin:-20px -20px 20px;object-fit:contain}
-.gallery{grid-template-columns:1fr;gap:14px}
-.gallery img{width:100%;height:auto;max-height:none;object-fit:contain}
-.quote{font-size:29px}
-.footer{line-height:1.7}
-#beheer{right:10px;bottom:10px}
-#panel{right:10px;bottom:62px;width:calc(100vw - 20px)}
-}
-
-@media(min-width:761px){
-/* Op desktop blijft de hero beeldvullend binnen de beschikbare viewport, zonder de navigatie te bedekken. */
-.hero{height:100svh;min-height:560px}
-.hero img{position:absolute;top:var(--header);left:0;width:100%;height:calc(100svh - var(--header));object-fit:contain;object-position:center}
+:root{--header:70px}.nav{padding:0 16px}.brand img{width:50px;height:50px}.brand span{display:none}.menu{display:none}.menubtn{display:block}
+.menu.mobile-open{display:flex;position:fixed;top:var(--header);left:0;right:0;padding:18px 22px 24px;background:#05080d;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--line);z-index:10001}.menu.mobile-open a{padding:14px 0;border-bottom:1px solid rgba(228,191,105,.1)}
+/* Mobiel gebruikt exact dezelfde sticky hero-logica als desktop: de complete foto blijft in beeld totdat de volgende sectie eroverheen schuift. */
+.hero-wrap{height:100svh;min-height:0}.hero{height:calc(100svh - var(--header));min-height:0;top:var(--header)}.hero img{object-fit:contain;object-position:center}.hero-copy{bottom:5%;width:94%}.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}.hero-sub{font-size:11px;letter-spacing:.13em}
+.section{padding:72px 20px}.section h2{font-size:clamp(40px,12.5vw,62px)}.lead{font-size:19px}.text{font-size:16px;line-height:1.72}.grid{grid-template-columns:1fr;gap:18px;margin-top:35px}.card{padding:20px}.card img{width:calc(100% + 40px);height:auto;max-height:none;margin:-20px -20px 20px;object-fit:contain}.gallery{grid-template-columns:1fr;gap:14px}.gallery img{width:100%;height:auto;max-height:none;object-fit:contain}.quote{font-size:29px}.footer{line-height:1.7}#beheer{right:10px;bottom:10px}#panel{right:10px;bottom:62px;width:calc(100vw - 20px)}
 }
 </style>
 </head>
 <body>
-<header class="site-header">
-<nav class="nav">
-<a class="brand" href="#top"><img src="embleem.png" alt="Sociëteit ’t Kerfgilde"><span>SOCIËTEIT ’T KERFGILDE</span></a>
-<div class="menu" id="menu"><a href="#kerfgilde">’t Kerfgilde</a><a href="#besloet">Besloet</a><a href="#traditie">Traditie</a><a href="#leden">Leden</a><a href="#contact">Contact</a></div>
-<button class="menubtn" id="menubtn" type="button" aria-label="Menu openen" aria-expanded="false">MENU</button>
-</nav>
-</header>
-
+<header class="site-header"><nav class="nav"><a class="brand" href="#top"><img src="embleem.png" alt="Sociëteit ’t Kerfgilde"><span>SOCIËTEIT ’T KERFGILDE</span></a><div class="menu" id="menu"><a href="#kerfgilde">’t Kerfgilde</a><a href="#besloet">Besloet</a><a href="#traditie">Traditie</a><a href="#leden">Leden</a><a href="#contact">Contact</a></div><button class="menubtn" id="menubtn" type="button" aria-label="Menu openen" aria-expanded="false">MENU</button></nav></header>
 <main id="top">
-<div class="hero-wrap">
-<section class="hero" aria-label="Introductie">
-<img src="groep-banner.jpg" alt="Sociëteit ’t Kerfgilde in Venlo">
-<div class="shade"></div>
-<div class="hero-copy"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE</div><h1>WEEJ GAON KERVE.</h1><div class="hero-sub">’T NIEJE GOLD VAN VENLO.</div></div>
-</section>
-</div>
-
+<div class="hero-wrap"><section class="hero" aria-label="Introductie"><img src="groep-banner.jpg" alt="Sociëteit ’t Kerfgilde in Venlo"><div class="shade"></div><div class="hero-copy"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE</div><h1>WEEJ GAON KERVE.</h1><div class="hero-sub">’T NIEJE GOLD VAN VENLO.</div></div></section></div>
 <div class="content">
 <section class="section" id="kerfgilde"><div class="eyebrow">WAT IS SOCIËTEIT ’T KERFGILDE?</div><h2>SOCIËTEIT ’T<br>KERFGILDE</h2><div class="rule"></div><p class="lead">Neet te kaup. Neet veur idderein. En zeker neet te kopiëre.</p><p class="text">Sommige minse hebbe unne titel. Weej hebbe unne kerf. Sociëteit ’t Kerfgilde is een Venlose sociëteit met een eigen karakter, eigen tradities en vooral een sterk gevoel voor vriendschap, humor en verbondenheid.</p></section>
 <section class="section alt" id="besloet"><div class="eyebrow">ÓS BESLOEËT</div><h2>WAORUM?</h2><div class="quote">Sociëteit van neet mier ald prins zien.</div><p class="text">Een besloten gezelschap waar sterke verhalen, humor, vriendschap en nieuwe tradities samenkomen.</p></section>
 <section class="section" id="traditie"><div class="eyebrow">TRADITIE SINDS 2026</div><h2>’T NIEJE GOLD<br>VAN VENLO.</h2><p class="lead">Wae? Ald-hoeëgwaerdigheidsbekleiders die tiedes dae schoeëne Venlose Vastelaovend veurop zien meuge gaon.</p><div class="grid"><article class="card"><img src="heilig-hartkerk.jpg" alt="Venlo"><h3>Venlo als decor</h3><p>De stad, haar verhalen en haar karakter vormen de achtergrond van wat wij samen maken.</p></article><article class="card"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde"><h3>De echte deepe kerf</h3><p>Een moderne sociëteit met ruimte voor rituelen, vriendschap, humor en tradities die vanzelf ontstaan.</p></article></div></section>
 <section class="section alt" id="leden"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE IN BEELD</div><h2>WAT MAK ÓS WAE WEEJ ZIEN</h2><p class="lead">Want uiteindelijk draait het om de mensen die aan tafel zitten.</p><div class="gallery"><img src="groep.jpg" alt="’t Kerfgilde"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde"><img src="groep-banner.jpg" alt="’t Kerfgilde"></div></section>
 <section class="section" id="contact"><div class="eyebrow">ÓS BESLOEËT</div><h2>WEEJ GAON<br>KERVE.</h2><p class="lead">’T NIEJE GOLD VAN VENLO.</p><p class="text">’T KERFGILDE · Sociëteit van neet mier ald Prins zien.</p></section>
-</div>
-</main>
-
+</div></main>
 <footer class="footer">SOCIËTEIT ’T KERFGILDE · VENLO · ’T NIEJE GOLD VAN VENLO.</footer>
-
 <button id="beheer" type="button">Beheer website</button>
-<div id="panel" aria-hidden="true">
-<button class="close" id="close" type="button" aria-label="Sluiten">×</button>
-<h3>’t Kerfgilde beheer</h3>
-<p>Teksten kunnen hier rechtstreeks worden aangepast. De wijzigingen worden in deze browser bewaard.</p>
-<label>Naam / titel</label><div class="edit" contenteditable="true" data-target=".brand span">SOCIËTEIT ’T KERFGILDE</div>
-<label>Hero titel</label><div class="edit" contenteditable="true" data-target=".hero h1">WEEJ GAON KERVE.</div>
-<label>Hero ondertitel</label><div class="edit" contenteditable="true" data-target=".hero-sub">’T NIEJE GOLD VAN VENLO.</div>
-<label>Contact ondertitel</label><div class="edit" contenteditable="true" data-target="#contact .lead">’T NIEJE GOLD VAN VENLO.</div>
-<button class="save" id="save" type="button">Wijzigingen bewaren</button>
-</div>
-
+<div id="panel" aria-hidden="true"><button class="close" id="close" type="button" aria-label="Sluiten">×</button><h3>’t Kerfgilde beheer</h3><p>Teksten kunnen hier rechtstreeks worden aangepast. De wijzigingen worden in deze browser bewaard.</p><label>Naam / titel</label><div class="edit" contenteditable="true" data-target=".brand span">SOCIËTEIT ’T KERFGILDE</div><label>Hero titel</label><div class="edit" contenteditable="true" data-target=".hero h1">WEEJ GAON KERVE.</div><label>Hero ondertitel</label><div class="edit" contenteditable="true" data-target=".hero-sub">’T NIEJE GOLD VAN VENLO.</div><label>Contact ondertitel</label><div class="edit" contenteditable="true" data-target="#contact .lead">’T NIEJE GOLD VAN VENLO.</div><button class="save" id="save" type="button">Wijzigingen bewaren</button></div>
 <script>
-const menu=document.getElementById('menu');
-const btn=document.getElementById('menubtn');
+const menu=document.getElementById('menu'),btn=document.getElementById('menubtn');
 btn.addEventListener('click',()=>{const open=menu.classList.toggle('mobile-open');btn.setAttribute('aria-expanded',String(open));});
 menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('mobile-open');btn.setAttribute('aria-expanded','false')}));
-
-const panel=document.getElementById('panel');
-const beheer=document.getElementById('beheer');
-const close=document.getElementById('close');
+const panel=document.getElementById('panel'),beheer=document.getElementById('beheer'),close=document.getElementById('close');
 beheer.addEventListener('click',()=>{panel.classList.add('open');panel.setAttribute('aria-hidden','false')});
 close.addEventListener('click',()=>{panel.classList.remove('open');panel.setAttribute('aria-hidden','true')});
-
-document.querySelectorAll('.edit').forEach(e=>{
- const k='kg-edit-'+e.dataset.target;
- const v=localStorage.getItem(k);
- if(v){e.textContent=v;const t=document.querySelector(e.dataset.target);if(t)t.textContent=v}
-});
-
-document.getElementById('save').addEventListener('click',()=>{
- document.querySelectorAll('.edit').forEach(e=>{
-  const v=e.textContent.trim();
-  localStorage.setItem('kg-edit-'+e.dataset.target,v);
-  const t=document.querySelector(e.dataset.target);if(t)t.textContent=v;
- });
- alert('Wijzigingen zijn op dit apparaat bewaard.');
-});
+document.querySelectorAll('.edit').forEach(e=>{const k='kg-edit-'+e.dataset.target;const v=localStorage.getItem(k);if(v!==null){e.textContent=v;const t=document.querySelector(e.dataset.target);if(t)t.textContent=v;}});
+document.getElementById('save').addEventListener('click',()=>{document.querySelectorAll('.edit').forEach(e=>{const v=e.textContent.trim();localStorage.setItem('kg-edit-'+e.dataset.target,v);const t=document.querySelector(e.dataset.target);if(t)t.textContent=v;});alert('Wijzigingen zijn op dit apparaat bewaard.');});
 </script>
 </body>
 </html>
