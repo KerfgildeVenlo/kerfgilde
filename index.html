@@ -9,17 +9,18 @@
 <style>
 :root{--bg:#05080d;--navy:#08121d;--gold:#b88a35;--gold2:#e4bf69;--ivory:#f2eee5;--text:#c9c2b7;--line:rgba(228,191,105,.2);--header:78px;--max:1180px}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ivory);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ivory);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden;min-width:320px}
 a{color:inherit;text-decoration:none}
 .site-header{position:fixed;top:0;left:0;right:0;height:var(--header);z-index:10000;background:rgba(5,8,13,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav{height:100%;max-width:var(--max);margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{display:flex;align-items:center;gap:13px}.brand img{width:58px;height:58px;object-fit:contain}.brand span{font-size:10px;letter-spacing:.22em;text-transform:uppercase}
 .menu{display:flex;align-items:center;gap:24px}.menu a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c8c1b6}.menu a:hover{color:var(--gold2)}
-.menubtn{display:none;background:#0b1119;color:var(--gold2);border:1px solid var(--line);padding:12px 15px;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
-.hero-wrap{height:100svh;min-height:560px;padding-top:var(--header);position:relative;z-index:0}
-.hero{position:relative;height:calc(100svh - var(--header));min-height:490px;background:#000;overflow:hidden;z-index:0}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;z-index:0}
+.menubtn{display:none;background:#0b1119;color:var(--gold2);border:1px solid var(--line);padding:12px 15px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+/* De hero reserveert exact de eerste viewport. De afbeelding zelf is fixed onder de header, zodat de content er tijdens het scrollen overheen schuift. */
+.hero-wrap{height:100svh;min-height:560px;position:relative;z-index:0}
+.hero{position:fixed;top:var(--header);left:0;width:100%;height:calc(100svh - var(--header));min-height:490px;background:#000;overflow:hidden;z-index:0}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;z-index:0;max-width:none}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.05) 42%,rgba(0,0,0,.82) 100%);pointer-events:none;z-index:1}
 .hero-copy{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:min(92%,900px);text-align:center;text-shadow:0 4px 24px #000;z-index:2}
 .eyebrow{color:var(--gold2);font-size:10px;letter-spacing:.28em;text-transform:uppercase}
@@ -34,26 +35,29 @@ section{scroll-margin-top:calc(var(--header) + 14px)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:55px}.card{background:#09131e;border:1px solid var(--line);padding:25px}.card img{display:block;width:calc(100% + 50px);height:300px;object-fit:cover;margin:-25px -25px 24px}.card h3{font:400 27px/1.1 Georgia,serif;margin:0 0 12px}.card p{font-size:15px;line-height:1.7;color:#aaa59b}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:45px}.gallery img{display:block;width:100%;height:auto;max-height:330px;object-fit:contain;background:#02060b}
 .footer{text-align:center;padding:55px 20px;background:#02050a;border-top:1px solid var(--line);color:#8e887f;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
-#beheer{position:fixed;right:18px;bottom:18px;z-index:20000;background:var(--gold);color:#080b0f;border:0;padding:13px 17px;font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 12px 35px rgba(0,0,0,.5);cursor:pointer}
+#beheer{position:fixed;right:18px;bottom:18px;z-index:20000;background:var(--gold);color:#080b0f;border:0;padding:13px 17px;font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 12px 35px rgba(0,0,0,.5);cursor:pointer;touch-action:manipulation}
 #panel{display:none;position:fixed;right:18px;bottom:70px;width:min(500px,calc(100vw - 24px));max-height:80vh;overflow:auto;z-index:20001;background:#07111c;color:var(--ivory);border:1px solid var(--line);padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.7)}#panel.open{display:block}
 #panel h3{margin:0 0 7px;color:var(--gold2)}#panel p{font-size:12px;color:#aaa59b;line-height:1.5}.edit{display:block;width:100%;margin:9px 0;padding:10px;background:#02060b;color:var(--ivory);border:1px solid var(--line);font:14px/1.45 Arial,sans-serif}.edit[contenteditable=true]{outline:none}.close{float:right;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}.save{width:100%;padding:12px;background:var(--gold);border:0;font-weight:800;margin-top:8px;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
 @media(max-width:760px){
 :root{--header:70px}.nav{padding:0 16px}.brand img{width:50px;height:50px}.brand span{display:none}.menu{display:none}.menubtn{display:block}
 .menu.mobile-open{display:flex;position:fixed;top:var(--header);left:0;right:0;padding:18px 22px 24px;background:#05080d;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid var(--line);z-index:10001}.menu.mobile-open a{padding:14px 0;border-bottom:1px solid rgba(228,191,105,.1)}
-.hero-wrap{height:100svh;min-height:0;padding-top:var(--header)}.hero{height:calc(100svh - var(--header));min-height:0}.hero img{object-fit:cover;object-position:center}.hero-copy{bottom:5%;width:94%}.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}.hero-sub{font-size:11px;letter-spacing:.13em}
+.hero-wrap{height:100svh;min-height:0}.hero{top:var(--header);height:calc(100svh - var(--header));min-height:0}.hero img{object-fit:cover;object-position:center center}.hero-copy{bottom:5%;width:94%}.hero h1{font-size:clamp(39px,13vw,62px);margin:9px 0}.hero-sub{font-size:11px;letter-spacing:.13em}
 .section{padding:72px 20px}.section h2{font-size:clamp(40px,12.5vw,62px)}.lead{font-size:19px}.text{font-size:16px;line-height:1.72}.grid{grid-template-columns:1fr;gap:18px;margin-top:35px}.card{padding:20px}.card img{width:calc(100% + 40px);height:auto;max-height:none;margin:-20px -20px 20px;object-fit:contain}.gallery{grid-template-columns:1fr;gap:14px}.gallery img{width:100%;height:auto;max-height:none;object-fit:contain}.quote{font-size:29px}.footer{line-height:1.7}#beheer{right:10px;bottom:10px}#panel{right:10px;bottom:62px;width:calc(100vw - 20px)}
 }
+@media(min-width:761px) and (max-height:700px){.hero-copy{bottom:5%}.hero h1{font-size:clamp(44px,6vw,78px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<header class="site-header"><nav class="nav"><a class="brand" href="#top"><img src="embleem.png" alt="Sociëteit ’t Kerfgilde"><span>SOCIËTEIT ’T KERFGILDE</span></a><div class="menu" id="menu"><a href="#kerfgilde">’t Kerfgilde</a><a href="#besloet">Besloet</a><a href="#traditie">Traditie</a><a href="#leden">Leden</a><a href="#contact">Contact</a></div><button class="menubtn" id="menubtn" type="button" aria-label="Menu openen" aria-expanded="false">MENU</button></nav></header>
+<header class="site-header"><nav class="nav"><a class="brand" href="#top"><img src="embleem.png" alt="Sociëteit ’t Kerfgilde" decoding="async"><span>SOCIËTEIT ’T KERFGILDE</span></a><div class="menu" id="menu"><a href="#kerfgilde">’t Kerfgilde</a><a href="#besloet">Besloet</a><a href="#traditie">Traditie</a><a href="#leden">Leden</a><a href="#contact">Contact</a></div><button class="menubtn" id="menubtn" type="button" aria-label="Menu openen" aria-expanded="false">MENU</button></nav></header>
 <main id="top">
-<div class="hero-wrap"><section class="hero" aria-label="Introductie"><img src="groep-banner.jpg" alt="Sociëteit ’t Kerfgilde in Venlo"><div class="shade"></div><div class="hero-copy"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE</div><h1>WEEJ GAON KERVE.</h1><div class="hero-sub">’T NIEJE GOLD VAN VENLO.</div></div></section></div>
+<div class="hero-wrap"><section class="hero" aria-label="Introductie"><img src="groep-banner.jpg" alt="Sociëteit ’t Kerfgilde in Venlo" fetchpriority="high" decoding="async"><div class="shade"></div><div class="hero-copy"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE</div><h1>WEEJ GAON KERVE.</h1><div class="hero-sub">’T NIEJE GOLD VAN VENLO.</div></div></section></div>
 <div class="content">
 <section class="section" id="kerfgilde"><div class="eyebrow">WAT IS SOCIËTEIT ’T KERFGILDE?</div><h2>SOCIËTEIT ’T<br>KERFGILDE</h2><div class="rule"></div><p class="lead">Neet te kaup. Neet veur idderein. En zeker neet te kopiëre.</p><p class="text">Sommige minse hebbe unne titel. Weej hebbe unne kerf. Sociëteit ’t Kerfgilde is een Venlose sociëteit met een eigen karakter, eigen tradities en vooral een sterk gevoel voor vriendschap, humor en verbondenheid.</p></section>
 <section class="section alt" id="besloet"><div class="eyebrow">ÓS BESLOEËT</div><h2>WAORUM?</h2><div class="quote">Sociëteit van neet mier ald prins zien.</div><p class="text">Een besloten gezelschap waar sterke verhalen, humor, vriendschap en nieuwe tradities samenkomen.</p></section>
-<section class="section" id="traditie"><div class="eyebrow">TRADITIE SINDS 2026</div><h2>’T NIEJE GOLD<br>VAN VENLO.</h2><p class="lead">Wae? Ald-hoeëgwaerdigheidsbekleiders die tiedes dae schoeëne Venlose Vastelaovend veurop zien meuge gaon.</p><div class="grid"><article class="card"><img src="heilig-hartkerk.jpg" alt="Venlo"><h3>Venlo als decor</h3><p>De stad, haar verhalen en haar karakter vormen de achtergrond van wat wij samen maken.</p></article><article class="card"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde"><h3>De echte deepe kerf</h3><p>Een moderne sociëteit met ruimte voor rituelen, vriendschap, humor en tradities die vanzelf ontstaan.</p></article></div></section>
-<section class="section alt" id="leden"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE IN BEELD</div><h2>WAT MAK ÓS WAE WEEJ ZIEN</h2><p class="lead">Want uiteindelijk draait het om de mensen die aan tafel zitten.</p><div class="gallery"><img src="groep.jpg" alt="’t Kerfgilde"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde"><img src="groep-banner.jpg" alt="’t Kerfgilde"></div></section>
+<section class="section" id="traditie"><div class="eyebrow">TRADITIE SINDS 2026</div><h2>’T NIEJE GOLD<br>VAN VENLO.</h2><p class="lead">Wae? Ald-hoeëgwaerdigheidsbekleiders die tiedes dae schoeëne Venlose Vastelaovend veurop zien meuge gaon.</p><div class="grid"><article class="card"><img src="heilig-hartkerk.jpg" alt="Venlo" loading="lazy" decoding="async"><h3>Venlo als decor</h3><p>De stad, haar verhalen en haar karakter vormen de achtergrond van wat wij samen maken.</p></article><article class="card"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde" loading="lazy" decoding="async"><h3>De echte deepe kerf</h3><p>Een moderne sociëteit met ruimte voor rituelen, vriendschap, humor en tradities die vanzelf ontstaan.</p></article></div></section>
+<section class="section alt" id="leden"><div class="eyebrow">SOCIËTEIT ’T KERFGILDE IN BEELD</div><h2>WAT MAK ÓS WAE WEEJ ZIEN</h2><p class="lead">Want uiteindelijk draait het om de mensen die aan tafel zitten.</p><div class="gallery"><img src="groep.jpg" alt="’t Kerfgilde" loading="lazy" decoding="async"><img src="groep-onherkenbaar.jpg" alt="’t Kerfgilde" loading="lazy" decoding="async"><img src="groep-banner.jpg" alt="’t Kerfgilde" loading="lazy" decoding="async"></div></section>
 <section class="section" id="contact"><div class="eyebrow">ÓS BESLOEËT</div><h2>WEEJ GAON<br>KERVE.</h2><p class="lead">’T NIEJE GOLD VAN VENLO.</p><p class="text">’T KERFGILDE · Sociëteit van neet mier ald Prins zien.</p></section>
 </div></main>
 <footer class="footer">SOCIËTEIT ’T KERFGILDE · VENLO · ’T NIEJE GOLD VAN VENLO.</footer>
