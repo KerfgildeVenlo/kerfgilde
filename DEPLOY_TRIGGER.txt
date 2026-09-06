@@ -1,1 +1,2 @@
-Production restore trigger for Vercel. No website content is defined here.
+Production restore trigger for Vercel.
+Technical hero-width/text correction committed on 2026-09-06.
